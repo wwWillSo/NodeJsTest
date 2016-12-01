@@ -1,0 +1,157 @@
+tradeStatus 0：未发货 1：已发货		-->		tradeTime
+signStatus 0：未签收 1：已签收		--> 	signTime
+deleteStatus 0：未删除 1：已删除
+cancelStatus 0：未取消 1：已取消
+
+
+import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)
+
+/api/public/talkOnCircle
+/api/public/likeThisTalk/{talkId}
+/api/public/commentThisTalk/{talkId}
+/api/public/getCircleTalkedList
+/api/public/getCircleTalkedInfo/{talkId}
+/api/public/getCircleCommentList/{talkId}
+/api/public/follow							--未完成
+/api/public/retrievePersonalPage"			
+
+进入个人页面暂定是有“个人主页”、“点击圈子列表的头像进入”两种方式
+url尾部的路径参数代表的就是圈子id
+talkId为0，代表自己的主页
+talkId为非0，代表取得这个圈子对应的用户的主页
+
+url后面的id是personalPage的id，就是进到别人主页就会有的主页id，不要跟loginId混淆了
+
+url后面的id是操作类型，0是获取关注的人，1是获取粉丝
+
+
+除了相关表之外还有5个set=3的产品需要放到29服务器的数据库
+
+securityDesc 、 securityGrpCode
+
+						reply_id					PK
+reply_id				login_id 					PK
+login_id				reply_login_id
+login_name				login_name 					PK
+comment_id				reply_login_name
+content					comment_id 					PK
+create_time				content
+						reply_time
+
+18814129419	123456 dkw9H4ez40v+0WlGpsadHw==
+
+url后面的参数：
+第一个：是主页ID（personalPageId）
+第二个：是操作类型（0 ：查看关注的人 1 ：查看粉丝）
+
+不管有没有登录都能获得所有圈子
+对于各个圈子里面的“isLike”字段，有两种情况：
+1、未登录，看谁都是自己没点过赞的，所有isLike字段都为1（未点赞）
+2、已登录，自己点过赞的圈子里面的isLike字段为0（已点赞）
+
+注意看注释
+
+要先登录才能发布圈子
+
+要先登录才能点赞
+
+要先登录才能评论
+
+url第一个参数：此回复所在圈子的圈子ID（talkId）
+	第二个参数：回复的人的loginId（不是自己的，是对方的）
+
+url后面的参数是圈子ID
+返回的参数里面：replyQueueNo不用管，只是一个主键之类的东西而已
+				loginId:当前登录的用户id
+				replyLoginId:要回复的人的id，如果单纯只是一个评论的话，这个值是0
+				如果replyLoginId不为0的话，代表 "loginId 回复 replyLoginId"
+返回的数据列表排列的话是按replyTime正序排列的
+
+/api/public/talkOnCircle						用户发表朋友圈
+/api/public/likeThisTalk/{talkId}				用户点赞
+/api/public/commentThisTalk/{talkId}			用户评论
+/api/public/getCircleTalkedList					获取圈子列表
+/api/public/getCircleTalkedInfo/{talkId}		获取圈子详情
+/api/public/getCircleCommentList/{talkId}		获取某条圈子下面的评论
+/api/public/follow/{personalPageId}				关注与取消关注
+/api/public/retrievePersonalPage/{loginId}		获取主页
+
+/api/public/retrieveFollowingOrFollowersList/{personalPageId}/{option}		获取“关注的人”、“粉丝”
+
+/api/public/replyToSomeone/{talkId}/{replyLoginId}	回复某人
+
+
+120.76.246.29			administrator/JDTSytx7811908
+
+120.76.153.154			administrator/S,w20160808
+
+122.112.234.223			administrator/Shawn-20161216
+
+120.76.245.248			administrator/JDTSytx7811908
+
+www.okjr.com 前台用户：18668018527 密码：123456 后台：okjr.com/admin 帐号：admin 密码：admin888
+
+股票交易系统数据库：120.76.234.141     
+账号密码：admin/admin12345
+
+
+<img src="/commom/file/showImage?imageFilename=404.png">
+
+
+	<img src='/commom/file/showImage?imageFilename=404.png'/>
+
+	insert into news (news_category_id, news_title, short_desc, 
+news_content, create_by, create_time, update_by, update_time, agent_id, author)
+ values (1, '1129系统消息', 'asdasd', 'asdsad', '1', CURRENT_TIMESTAMP(), 1, CURRENT_TIMESTAMP(), 1, 'will');
+
+
+ 商品图片比例限制为 长:宽 = 3:4
+
+datepicker插件的基本使用
+jquery需要在此前引入
+<script src="${ctx}/res/datepicker/js/foundation-datepicker.js"></script>
+<script src="${ctx}/res/datepicker/js/locales/foundation-datepicker.zh-CN.js"></script>
+
+<script>
+	$("#startDate").fdatepicker({
+		format: 'yyyy-mm-dd',
+	})
+	$("#endDate").fdatepicker({
+		format: 'yyyy-mm-dd',
+	})
+</script>
+
+
+//图片预览js代码
+var previewImg = function(fileInput,imgDiv){
+		if(window.FileReader){//支持FileReader的时候
+	        var reader=new FileReader();
+	        reader.readAsDataURL(fileInput.files[0]);
+	        reader.onload=function(evt){
+	            imgDiv.innerHTML="\<img src="+evt.target.result+"\ style='width:100%;height:100%'>";
+	        }
+	    }else{//兼容ie9-
+	        imgDiv.innerHTML='<div class="img" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src=\'' + fileInput.value + '\')"></div>';
+	    }
+	}
+
+
+<img src='/commom/file/showImage?imageFilename=1480672274739fe31.png'>asdsadsada<img src='/commom/file/showImage?imageFilename=1480672265550afbc.png'>
+
+交易模块的起点：productService里面的performTrade
+
+abs存储方式：E:/workspace/YTX_1.2/shawnway-trade-aggregate/shawnway-trade-launcher/uploaded_images/product/image/年/月/日/xxx.jpg
+				E:/workspace/YTX_1.2/shawnway-trade-aggregate/shawnway-trade-launcher/uploaded_images/product/detail/年/月/日/xxx.jpg
+abstract存储方式：/commom/file/product/image/年/月/日/xxx.jpg
+
+
+<img src='/commom/file/news/system/2016/12/12/showImage?imageFilename=1481531825949ae2d.png'>qewqewewqewq<img src='/commom/file/news/system/2016/12/12/showImage?imageFilename=14815318307422bec.png'>ewqewqewewewqeqwe<img src='/commom/file/news/system/2016/12/12/showImage?imageFilename=1481531835145e3fc.png'>ewqwqewewqewqewqewwqe<img src='/commom/file/news/system/2016/12/12/showImage?imageFilename=1481531873326ae11.png'>
+
+E:/workspace/YTX_1.2/shawnway-trade-aggregate/shawnway-trade-launcher/uploaded_images/news/system/2016/12/12/1481531825949ae2d.png,E:/workspace/YTX_1.2/shawnway-trade-aggregate/shawnway-trade-launcher/uploaded_images/news/system/2016/12/12/14815318307422bec.png,E:/workspace/YTX_1.2/shawnway-trade-aggregate/shawnway-trade-launcher/uploaded_images/news/system/2016/12/12/1481531835145e3fc.png,
+
+<img src='/commom/file/news/finance/2016/12/13/showImage?imageFilename=14816029257302bba.png'><img src='/commom/file/news/finance/2016/12/13/showImage?imageFilename=1481602748914faad.png'>
+
+
+E:/workspace/YTX_1.2/shawnway-trade-aggregate/shawnway-trade-launcher/uploaded_images/news/finance/2016/12/13/1481602748914faad.png,E:/workspace/YTX_1.2/shawnway-trade-aggregate/shawnway-trade-launcher/uploaded_images/news/finance/2016/12/13/14816029257302bba.png,
+
+E:/workspace/YTX_1.2/shawnway-trade-aggregate/shawnway-trade-launcher/uploaded_images/news/finance/2016/12/13/1481602748914faad.png,E:/workspace/YTX_1.2/shawnway-trade-aggregate/shawnway-trade-launcher/uploaded_images/news/finance/2016/12/13/14816029257302bba.png,E:/workspace/YTX_1.2/shawnway-trade-aggregate/shawnway-trade-launcher/uploaded_images/news/finance/2016/12/13/1481603159331ddcc.png,
